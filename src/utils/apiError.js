@@ -2,7 +2,7 @@ class apiError extends Error{
     constructor(
         statusCode,
         message="Something went wrong",
-        error=[],
+        errors=[],
         stack=""
     ){
         super(message)
