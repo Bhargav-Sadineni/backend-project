@@ -8,8 +8,11 @@ import jwt from "jsonwebtoken"
 const generateAccessAndRefreshTokens=async(userId)=>{
     try {
         const user = await User.findById(userId)
-        const accessToken = generateAccessToken()
-        const refreshToken = generateRefreshToken()
+        //console.log("user:",user)
+        const accessToken = user.generateAccessToken()
+        //console.log("accesstoken:",accessToken)
+        const refreshToken = user.generateRefreshToken()
+        //console.log("refreshToken:",refreshToken)
         
         user.refreshToken=refreshToken
         await user.save({validateBeforeSave:false})
@@ -129,7 +132,7 @@ const loginUser = asyncHandler(async (req,res)=>{
 
     const {email,username,password}=req.body
 
-    if(!username||!email){
+    if(!username&&!email){
         throw new apiError(400,"username or email is required")
     }
 
