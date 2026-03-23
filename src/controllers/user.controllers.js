@@ -133,7 +133,7 @@ const loginUser = asyncHandler(async (req,res)=>{
     //send cookie
 
     const {email,username,password}=req.body
-
+    //console.log(req.cookie)//->showing undefined
     if(!username&&!email){
         throw new apiError(400,"username or email is required")
     }
@@ -183,6 +183,7 @@ const loginUser = asyncHandler(async (req,res)=>{
 
 
 const logoutUser = asyncHandler(async(req,res)=>{
+    console.log(req.cookies)
     await User.findByIdAndUpdate(
         req.user._id,
         {
